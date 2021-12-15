@@ -1,7 +1,8 @@
 #!usr/bin/env python3
 # pcost.py
-#
-# Exercise 1.27
+# practical python workthrough
+# typed out by: Jonas Bird
+# Exercise 1.27, 1.30, 1.31
 
 
 def portfolio_cost(filename):
@@ -13,9 +14,14 @@ columns in each row"""
         header = next(f)
         for line in f:
             row = line.split(',')
-            total_price += int(row[1]) * float(row[2])
+            try:
+                total_price += int(row[1]) * float(row[2])
+            except:
+                print('Bad data in row, skipping')
+                continue
     return total_price
 
 
-cost = portfolio_cost('Data/portfolio.csv')
-print('Total cost: ', cost)
+if __name__ == '__main__':
+    cost = portfolio_cost('Data/portfolio.csv')
+    print('Total cost: ', cost)
