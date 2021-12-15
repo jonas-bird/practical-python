@@ -2,8 +2,9 @@
 # pcost.py
 # practical python workthrough
 # typed out by: Jonas Bird
-# Exercise 1.27, 1.30, 1.31
+# Exercise 1.27, 1.30, 1.31, 1.32
 
+import csv
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column
@@ -11,9 +12,9 @@ and a double in the third, and returns the sum of the product of the two
 columns in each row"""
     total_price = 0.0
     with open(filename, 'rt') as f:
-        header = next(f)
-        for line in f:
-            row = line.split(',')
+        rows = csv.reader(f)
+        header = next(rows)
+        for row in rows:
             try:
                 total_price += int(row[1]) * float(row[2])
             except:
