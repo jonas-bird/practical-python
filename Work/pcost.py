@@ -1,10 +1,12 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 # pcost.py
 # practical python workthrough
 # typed out by: Jonas Bird
-# Exercise 1.27, 1.30, 1.31, 1.32
+# Exercise 1.27, 1.30, 1.31, 1.32, 1.33
 
 import csv
+import sys
+
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column
@@ -24,5 +26,10 @@ columns in each row"""
 
 
 if __name__ == '__main__':
-    cost = portfolio_cost('Data/portfolio.csv')
+    if len(sys.argv) == 2:
+        csv_file = sys.argv[1]
+    else:
+        csv_file = 'Data/portfolio.csv'
+
+    cost = portfolio_cost(csv_file)
     print('Total cost: ', cost)
