@@ -3,6 +3,8 @@
 # Exercise 2.4
 
 import csv
+import sys
+
 
 def read_portfolio(filename):
     """recieves a filename for a csv file and returns list"""
@@ -12,9 +14,14 @@ def read_portfolio(filename):
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            holding = (row[0], int(row[1]), float(row[2]))
-            stock_portfolio.append(holding)
-
+            holding = {}
+            if len(row[0]) > 0:
+                holding[headers[0]] = row[0]
+                holding[headers[1]] = int(row[1])
+                holding[headers[2]] = float(row[2])
+                stock_portfolio.append(holding)
+                continue
+            next(rows)
     return stock_portfolio
 
 
@@ -24,5 +31,5 @@ if __name__ == '__main__':
     else:
         csv_file = 'Data/portfolio.csv'
 
-    cost = portfolio_cost(csv_file)
-    print('Total cost: ', cost)
+stocks = read_portfolio(csv_file)
+print(stocks)
