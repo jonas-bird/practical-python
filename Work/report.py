@@ -25,11 +25,38 @@ def read_portfolio(filename):
     return stock_portfolio
 
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        csv_file = sys.argv[1]
-    else:
-        csv_file = 'Data/portfolio.csv'
+def read_prices(filename):
+    """reads a list of stock symbols and prices from a csv file and returns
+    a dictionary with the stock symbol as key and the price as value"""
+    stock_prices = {}
+    with open(filename, 'r') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                stock_prices[row[0]] = float(row[1])
+            except:
+                continue
 
-stocks = read_portfolio(csv_file)
-print(stocks)
+    return prices
+
+
+if __name__ == '__main__':
+
+    if len(sys.argv) == 3:
+        holdings_file = sys.argv[1]
+        prices_file = sys.argv[2]
+    else:
+        holdings_file = 'Data/portfolio.csv'
+        prices_file = 'Data/prices.csv'
+    stocks_change = {}
+    total_value = 0.0
+    old_value = 0.0
+    stocks = read_portfolio(holdings_file)
+    prices = read_prices(prices_file)
+
+    for stock in stocks:
+        total_value += (stock['shares'] * prices[stock['name']])
+        old_value += (stock['shares'] * stock['price'])
+
+    print("Your portfolio is worth ${}, it has changed by ${}".format(
+        total_value, (total_value - old_value))
