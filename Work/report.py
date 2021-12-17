@@ -47,12 +47,12 @@ def make_report(stock_list, prices_dict):
     of tuples"""
     stock_status = []
     for stock in stock_list:
-        stock_info = {
-            'name': stock['name'],
-            'shares': stock['shares'],
-            'price': prices_dict[stock['name']],
-            'change': (prices_dict[stock['name']] - stock['price'])
-        }
+        stock_info = (
+            stock['name'],
+            int(stock['shares']),
+            float(prices_dict[stock['name']]),
+            float((prices_dict[stock['name']] - stock['price']))
+        )
         stock_status.append(stock_info)
     return stock_status
 
@@ -69,15 +69,5 @@ if __name__ == '__main__':
     stocks = read_portfolio(holdings_file)
     prices = read_prices(prices_file)
     stock_report = make_report(stocks, prices)
-
-    #  stocks_change = {}
-    # total_value = 0.0
-    # old_value = 0.0
-
-#    for stock in stocks:
-
-       #  total_value += (stock['shares'] * prices[stock['name']])
-    #     old_value += (stock['shares'] * stock['price'])
-
-    # print("Your portfolio is worth ${}, it has changed by ${}".format(
-    #     total_value, (total_value - old_value))
+    for name, shares, price, change in stock_report:
+        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
