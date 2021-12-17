@@ -75,4 +75,4 @@ if __name__ == '__main__':
     print('%10s %10s %10s %10s' % headers)
     print('---------- ---------- ---------- -----------')
     for name, shares, price, change in stock_report:
-        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+        print(f'{name:>10s} {shares:>10d} {"$" + str(price):>10s} {change:>10.2f}')
