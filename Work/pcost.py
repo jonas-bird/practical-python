@@ -15,12 +15,16 @@ columns in each row"""
     total_price = 0.0
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-        header = next(rows)
-        for row in rows:
+        headers = next(rows)
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
             try:
-                total_price += int(row[1]) * float(row[2])
-            except:
-                print('Bad data in row, skipping')
+                nshares = int(record['shares'])
+                price = float(record['price'])
+                total_price += nshares * price
+            # This catches errors in int() and float() conversions above
+            except ValueError:
+                print(f'Row {rowno}: Bad row: {row}')
                 continue
     return total_price
 
