@@ -69,5 +69,10 @@ if __name__ == '__main__':
     stocks = read_portfolio(holdings_file)
     prices = read_prices(prices_file)
     stock_report = make_report(stocks, prices)
+
+    # output the report generated in make_report
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print('%10s %10s %10s %10s' % headers)
+    print('---------- ---------- ---------- -----------')
     for name, shares, price, change in stock_report:
         print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
