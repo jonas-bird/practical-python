@@ -13,15 +13,16 @@ def read_portfolio(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         # should be name, shares, price
-        headers = next(rows)
-        for row in rows:
-            holding = {}
-            if len(row[0]) > 0:
-                holding[headers[0]] = row[0]
-                holding[headers[1]] = int(row[1])
-                holding[headers[2]] = float(row[2])
-                stock_portfolio.append(holding)
+        portfolio_headers = next(rows)
+        for row_num, row in enumerate(rows, start=1):
+            record = dict(zip(portfolio_headers, row))
+            try:
+                record['shares'] = int(record['shares'])
+                record['price'] = float(record['price'])
+                stock_portfolio.append(record)
                 continue
+            except ValueError:
+                print(f'Row {row_num}: Bad data: {row}')
             next(rows)
     return stock_portfolio
 
