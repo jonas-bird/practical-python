@@ -58,22 +58,31 @@ def make_report(stock_list, prices_dict):
     return stock_status
 
 
-if __name__ == '__main__':
-
-    if len(sys.argv) == 3:
-        holdings_file = sys.argv[1]
-        prices_file = sys.argv[2]
-    else:
-        holdings_file = 'Data/portfolio.csv'
-        prices_file = 'Data/prices.csv'
-
-    stocks = read_portfolio(holdings_file)
-    prices = read_prices(prices_file)
-    stock_report = make_report(stocks, prices)
-
+def print_report(stock_report):
+    """format and print the data in a nice tabulated way"""
     # output the report generated in make_report
     headers = ('Name', 'Shares', 'Price', 'Change')
     print('%10s %10s %10s %10s' % headers)
     print('---------- ---------- ---------- -----------')
     for name, shares, price, change in stock_report:
-        print(f'{name:>10s} {shares:>10d} {"$" + str(price):>10s} {change:>10.2f}')
+        print(
+         f'{name:>10s} {shares:>10d} {"$" + str(price):>10s} {change:>10.2f}')
+
+
+def portfolio_report(holdings_file, prices_file):
+    """calls other functions instead of a main function I guess"""
+    stocks = read_portfolio(holdings_file)
+    prices = read_prices(prices_file)
+    print_report(make_report(stocks, prices))
+
+
+if __name__ == '__main__':
+
+    if len(sys.argv) == 3:
+        holding_file = sys.argv[1]
+        price_file = sys.argv[2]
+    else:
+        holding_file = 'Data/portfolio.csv'
+        price_file = 'Data/prices.csv'
+
+    portfolio_report(holding_file, price_file)
