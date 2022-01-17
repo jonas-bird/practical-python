@@ -6,7 +6,7 @@ import csv
 
 
 def parse_csv(filename, select=None, types=None,
-        has_headers=False, delimiter=',', silence_errors=False):
+        has_headers=True, delimiter=',', silence_errors=False):
     """
     Parse a CSV file into a list of records
     """
