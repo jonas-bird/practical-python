@@ -5,7 +5,8 @@
 import csv
 
 
-def parse_csv(filename, select=None, types=None, has_headers=False, delimiter=','):
+def parse_csv(filename, select=None, types=None,
+        has_headers=False, delimiter=',', silence_errors=False):
     """
     Parse a CSV file into a list of records
     """
@@ -33,12 +34,14 @@ def parse_csv(filename, select=None, types=None, has_headers=False, delimiter=',
             # if type data for the rows was specified in the function call
             # typcast the row accordingly
             if types:
-                # I am not sure if we are supposed to do this error check but...
+                # I was not sure if I was supposed to do this error check
+                # it ended up being added in next chapter!
                 try:
                     row = [func(val) for func, val in zip(types, row)]
                 except ValueError as e:
-                    print(f'Row {rowno}: Bad row: {row}')
-                    print(e)
+                    if silence_errors is False:
+                        print(f'Row {rowno}: Bad row: {row}')
+                        print("Reason ", e)
                     continue
 
             # if the CSV file has headers create a dictionary using them
@@ -48,7 +51,7 @@ def parse_csv(filename, select=None, types=None, has_headers=False, delimiter=',
                     row = [ row[index] for index in indices ]
 
                 record = dict(zip(headers, row))
-            # if the CSV file does not have headers create a tuple from each row
+            # if the file does not have headers create a tuple from each row
             else:
                 record = tuple(row)
 
