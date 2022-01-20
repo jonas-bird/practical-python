@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
+
 # report.py
-#
-# Exercise 2.4
+# Exercise 2.4 practical python
+# this version typed up by Jonas Bird late 2021 - early 2022
 
 import csv
 import fileparse
