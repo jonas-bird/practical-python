@@ -3,7 +3,6 @@
 # Exercise 2.4
 
 import csv
-import sys
 import fileparse
 
 
@@ -68,8 +67,7 @@ def portfolio_report(holdings_file, prices_file):
     print_report(make_report(stocks, prices))
 
 
-if __name__ == '__main__':
-
+def main(argv):
     if len(sys.argv) == 3:
         holding_file = sys.argv[1]
         price_file = sys.argv[2]
@@ -78,3 +76,7 @@ if __name__ == '__main__':
         price_file = 'Data/prices.csv'
 
     portfolio_report(holding_file, price_file)
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
