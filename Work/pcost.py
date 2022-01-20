@@ -6,26 +6,29 @@
 
 import csv
 import sys
-
+from report import read_portfolio
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column
 and a double in the third, and returns the sum of the product of the two
 columns in each row"""
     total_price = 0.0
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for rowno, row in enumerate(rows, start=1):
-            record = dict(zip(headers, row))
-            try:
-                nshares = int(record['shares'])
-                price = float(record['price'])
-                total_price += nshares * price
-            # This catches errors in int() and float() conversions above
-            except ValueError:
-                print(f'Row {rowno}: Bad row: {row}')
-                continue
+    # with open(filename, 'rt') as f:
+    #     rows = csv.reader(f)
+    #     headers = next(rows)
+    #     for rowno, row in enumerate(rows, start=1):
+    #         record = dict(zip(headers, row))
+    #         try:
+    #             nshares = int(record['shares'])
+    #             price = float(record['price'])
+    #             total_price += nshares * price
+    #         # This catches errors in int() and float() conversions above
+    #         except ValueError:
+    #             print(f'Row {rowno}: Bad row: {row}')
+    #             continue
+    portfolio = read_portfolio(filename)
+    for row in portfolio:
+        total_price += row['price'] * row['shares']
     return total_price
 
 
