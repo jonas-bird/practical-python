@@ -4,26 +4,15 @@
 
 import csv
 import sys
+import fileparse
 
 
 def read_portfolio(filename):
     """recieves a filename for a csv file and returns list"""
     stock_portfolio = []
-
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        # should be name, shares, price
-        portfolio_headers = next(rows)
-        for row_num, row in enumerate(rows, start=1):
-            record = dict(zip(portfolio_headers, row))
-            try:
-                record['shares'] = int(record['shares'])
-                record['price'] = float(record['price'])
-                stock_portfolio.append(record)
-                continue
-            except ValueError:
-                print(f'Row {row_num}: Bad data: {row}')
-            next(rows)
+    colNames = ['name', 'shares', 'price']
+    colTypes = [str, int, float]
+    stock_portfolio = fileparse.parse_csv(filename, colNames, colTypes)
     return stock_portfolio
 
 
@@ -31,13 +20,16 @@ def read_prices(filename):
     """reads a list of stock symbols and prices from a csv file and returns
     a dictionary with the stock symbol as key and the price as value"""
     stock_prices = {}
-    with open(filename, 'r') as f:
-        rows = csv.reader(f)
-        for row in rows:
-            try:
-                stock_prices[row[0]] = float(row[1])
-            except:
-                continue
+    stock_list = fileparse.parse_csv(filename, None, [str, float], False)
+    for stock, price in stock_list:
+        stock_prices[stock] = price
+    # with open(filename, 'r') as f:
+    #     rows = csv.reader(f)
+    #     for row in rows:
+    #         try:
+    #             stock_prices[row[0]] = float(row[1])
+    #         except:
+    #             continue
 
     return stock_prices
 
