@@ -1,12 +1,16 @@
-# fileparse.py
-#
-# Exercise 3.3
+"""
+fileparse.py
 
+Exercise 3.3 from practical python
+ (https://dabeaz-course.github.io/practical-python/)
+
+typed up by Jonas Bird while working through the course in late 2021/early 2022
+"""
 import csv
 
 
 def parse_csv(filename, select=None, types=None,
-        has_headers=True, delimiter=',', silence_errors=False):
+              has_headers=True, delimiter=',', silence_errors=False):
     """
     Parse a CSV file into a list of records
     """
@@ -19,7 +23,8 @@ def parse_csv(filename, select=None, types=None,
             # Read the file headers
             headers = next(rows)
 
-            # If a column selector was given, find indices of the specified columns.
+            # If a column selector was given, find indices of the specified
+            # columns.
             # Also narrow the set of headers used for resulting dictionaries
             if select:
                 indices = [headers.index(colname) for colname in select]
