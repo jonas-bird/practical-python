@@ -13,7 +13,8 @@ def read_portfolio(filename):
     stock_portfolio = []
     colNames = ['name', 'shares', 'price']
     colTypes = [str, int, float]
-    stock_portfolio = fileparse.parse_csv(filename, colNames, colTypes)
+    with open(filename) as f:
+        stock_portfolio = fileparse.parse_csv(f, colNames, colTypes)
     return stock_portfolio
 
 
@@ -21,7 +22,8 @@ def read_prices(filename):
     """reads a list of stock symbols and prices from a csv file and returns
     a dictionary with the stock symbol as key and the price as value"""
     stock_prices = {}
-    stock_list = fileparse.parse_csv(filename, None, [str, float], False)
+    with open(filename) as f:
+        stock_list = fileparse.parse_csv(f, None, [str, float], False)
     for stock, price in stock_list:
         stock_prices[stock] = price
     # with open(filename, 'r') as f:
