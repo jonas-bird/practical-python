@@ -4,7 +4,7 @@
 # typed out by: Jonas Bird
 # Exercise 1.27, 1.30, 1.31, 1.32, 1.33
 
-import csv
+# import csv
 import sys
 from report import read_portfolio
 
@@ -20,8 +20,8 @@ columns in each row"""
 
 
 def main(argv):
-    if len(sys.argv) == 2:
-        csv_file = sys.argv[1]
+    if len(argv) == 2:
+        csv_file = argv[1]
     else:
         csv_file = 'Data/portfolio.csv'
 
@@ -30,5 +30,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    import sys
     main(sys.argv)

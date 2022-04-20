@@ -70,14 +70,15 @@ def portfolio_report(holdings_file, prices_file):
 
 
 def main(argv):
-    if len(sys.argv) == 3:
-        holding_file = sys.argv[1]
-        price_file = sys.argv[2]
+    if len(argv) == 3:
+        holding_file = argv[1]
+        price_file = argv[2]
     else:
         holding_file = 'Data/portfolio.csv'
         price_file = 'Data/prices.csv'
 
     portfolio_report(holding_file, price_file)
+
 
 if __name__ == '__main__':
     import sys
