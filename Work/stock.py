@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-
+"""
+Defines a stock class that represents a position in an stock portfolio
+Part of Chapter 4 assignments in Practical Python
+"""
 class Stock:
 
     def __init__(self, name, shares, price):
