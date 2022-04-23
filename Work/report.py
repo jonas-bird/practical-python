@@ -60,10 +60,9 @@ def print_report(stock_report):
     # output the report generated in make_report
     headers = ('Name', 'Shares', 'Price', 'Change')
     print('%10s %10s %10s %10s' % headers)
-    print('---------- ---------- ---------- -----------')
-    for name, shares, price, change in stock_report:
-        print(
-         f'{name:>10s} {shares:>10d} {"$" + str(price):>10s} {change:>10.2f}')
+    print(('-' * 10 + ' ') * len(headers))
+    for row in stock_report:
+        print('%10s %10d %10.2f %10.2f' % row)
 
 
 def portfolio_report(holdings_file, prices_file):
