@@ -4,8 +4,8 @@
 # Exercise 2.4 practical python
 # this version typed up by Jonas Bird late 2021 - early 2022
 
-import csv
 import fileparse
+import stock
 
 
 def read_portfolio(filename):
@@ -14,7 +14,9 @@ def read_portfolio(filename):
     colNames = ['name', 'shares', 'price']
     colTypes = [str, int, float]
     with open(filename) as f:
-        stock_portfolio = fileparse.parse_csv(f, colNames, colTypes)
+        stock_dicts = fileparse.parse_csv(f, colNames, colTypes)
+    stock_portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for
+                        d in stock_dicts ]
     return stock_portfolio
 
 
@@ -24,8 +26,8 @@ def read_prices(filename):
     stock_prices = {}
     with open(filename) as f:
         stock_list = fileparse.parse_csv(f, None, [str, float], False)
-    for stock, price in stock_list:
-        stock_prices[stock] = price
+    for stock_name, price in stock_list:
+        stock_prices[stock_name] = price
     # with open(filename, 'r') as f:
     #     rows = csv.reader(f)
     #     for row in rows:
@@ -38,16 +40,16 @@ def read_prices(filename):
 
 
 def make_report(stock_list, prices_dict):
-    """takes a list of dictionaries representing stock holdings and a
-    dictionary of stock symbols and the current price and returns a list
-    of tuples"""
+    """takes a list of Stock objects as defined by stock.Stock representing
+    stock holdings and a dictionary of stock symbols and the current price and
+    returns a list of tuples"""
     stock_status = []
-    for stock in stock_list:
+    for stock_symbol in stock_list:
         stock_info = (
-            stock['name'],
-            int(stock['shares']),
-            float(prices_dict[stock['name']]),
-            float((prices_dict[stock['name']] - stock['price']))
+            stock_symbol.name,
+            stock_symbol.shares,
+            float(prices_dict[stock_symbol.name]),
+            float(prices_dict[stock_symbol.name] - stock_symbol.price)
         )
         stock_status.append(stock_info)
     return stock_status

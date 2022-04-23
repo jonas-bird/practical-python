@@ -7,6 +7,7 @@
 # import csv
 import sys
 from report import read_portfolio
+import stock
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column
@@ -14,8 +15,8 @@ and a double in the third, and returns the sum of the product of the two
 columns in each row"""
     total_price = 0.0
     portfolio = read_portfolio(filename)
-    for row in portfolio:
-        total_price += row['price'] * row['shares']
+    for aStock in portfolio:
+        total_price += aStock.price * aStock.shares
     return total_price
 
 

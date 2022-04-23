@@ -3,6 +3,8 @@
 Defines a stock class that represents a position in an stock portfolio
 Part of Chapter 4 assignments in Practical Python
 """
+
+
 class Stock:
 
     def __init__(self, name, shares, price):
@@ -13,10 +15,8 @@ class Stock:
         self.shares = shares
         self.price = price
 
-
     def cost(self):
         return self.shares * self.price
-
 
     def sell(self, shares_to_sell):
         self.shares -= shares_to_sell
