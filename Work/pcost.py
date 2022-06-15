@@ -7,7 +7,6 @@
 # import csv
 import sys
 from report import read_portfolio
-import stock
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column

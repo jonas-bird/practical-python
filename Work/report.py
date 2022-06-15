@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-
-# report.py
-# Exercise 2.4 practical python
-# this version typed up by Jonas Bird late 2021 - early 2022
-
+"""
+  report.py
+  Exercise 2.4 practical python
+  this version typed up by Jonas Bird late 2021 - early 2022
+"""
 import fileparse
 import stock
-
+import tableformat
 
 def read_portfolio(filename):
     """recieves a filename for a csv file and returns list"""
@@ -28,14 +28,6 @@ def read_prices(filename):
         stock_list = fileparse.parse_csv(f, None, [str, float], False)
     for stock_name, price in stock_list:
         stock_prices[stock_name] = price
-    # with open(filename, 'r') as f:
-    #     rows = csv.reader(f)
-    #     for row in rows:
-    #         try:
-    #             stock_prices[row[0]] = float(row[1])
-    #         except:
-    #             continue
-
     return stock_prices
 
 
@@ -55,21 +47,28 @@ def make_report(stock_list, prices_dict):
     return stock_status
 
 
-def print_report(stock_report):
-    """format and print the data in a nice tabulated way"""
-    # output the report generated in make_report
-    headers = ('Name', 'Shares', 'Price', 'Change')
-    print('%10s %10s %10s %10s' % headers)
-    print(('-' * 10 + ' ') * len(headers))
-    for row in stock_report:
-        print('%10s %10d %10.2f %10.2f' % row)
+def print_report(stock_report, formatter):
+    """
+    format and output a table from a list (name, shares, price, change)
+    """
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
+    for name, shares, price, change in stock_report:
+        rowdata = [ name, str(shares), f'{price:0.2f}', f'{change:0.2f}' ]
+        formatter.row(rowdata)
 
 
 def portfolio_report(holdings_file, prices_file):
-    """calls other functions instead of a main function I guess"""
+    """
+    Make a stock report from a portfolio and price data files.
+    """
+    # read the data from provided files
     stocks = read_portfolio(holdings_file)
     prices = read_prices(prices_file)
-    print_report(make_report(stocks, prices))
+    # Create the report data
+    report = make_report(stocks, prices)
+    # print the report
+    formatter = tableformat.HTMLTableFormatter()
+    print_report(report, formatter)
 
 
 def main(argv):
