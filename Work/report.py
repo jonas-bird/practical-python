@@ -8,6 +8,7 @@ import fileparse
 import stock
 import tableformat
 
+
 def read_portfolio(filename):
     """recieves a filename for a csv file and returns list"""
     stock_portfolio = []
@@ -57,7 +58,7 @@ def print_report(stock_report, formatter):
         formatter.row(rowdata)
 
 
-def portfolio_report(holdings_file, prices_file):
+def portfolio_report(holdings_file, prices_file, output_format):
     """
     Make a stock report from a portfolio and price data files.
     """
@@ -67,19 +68,20 @@ def portfolio_report(holdings_file, prices_file):
     # Create the report data
     report = make_report(stocks, prices)
     # print the report
-    formatter = tableformat.HTMLTableFormatter()
+    formatter = tableformat.create_formatter(output_format)
     print_report(report, formatter)
 
 
 def main(argv):
-    if len(argv) == 3:
+    if len(argv) == 4:
         holding_file = argv[1]
         price_file = argv[2]
+        output_format = argv[3]
     else:
         holding_file = 'Data/portfolio.csv'
         price_file = 'Data/prices.csv'
-
-    portfolio_report(holding_file, price_file)
+        output_format = 'txt'
+    portfolio_report(holding_file, price_file, output_format)
 
 
 if __name__ == '__main__':
