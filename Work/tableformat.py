@@ -72,3 +72,18 @@ def create_formatter(name):
         raise RuntimeError(f'Unknown format {name}')
 
     return formatter
+
+
+def print_table(objects, attributes, formatter):
+    """
+    From a collection of objects, a list of attributes, and a formatter
+    print a table with columns of the provided attributes and each row
+    one of the
+    """
+    formatter.headings(attributes)
+    for o in objects:
+
+        row_data = []
+        for a in attributes:
+            row_data.append(str(getattr(o, a)))
+        formatter.row(row_data)
