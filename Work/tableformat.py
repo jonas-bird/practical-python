@@ -6,7 +6,19 @@ Typed up by Jonas Bird
 2022-04-23
 """
 
+
+class FormatError(Exception):
+    """
+    Indicate that create_formatter dose not have a formatter that matches
+    the string it recieved
+    """
+    pass
+
+
 class TableFormatter:
+    """
+    Abstract base class
+    """
     def headings(self, headers):
         '''
         Emit the table headings.
@@ -69,7 +81,7 @@ def create_formatter(name):
     elif name == 'html':
         formatter = HTMLTableFormatter()
     else:
-        raise RuntimeError(f'Unknown format {name}')
+        raise FormatError(f'Unknown format {name}')
 
     return formatter
 
