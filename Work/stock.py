@@ -15,6 +15,15 @@ class Stock:
         self.shares = shares
         self.price = price
 
+    @property
+    def shares(self):
+        return self._shares
+
+    @shares.setter
+    def shares(self, value):
+        if not isinstance(value, int):
+            raise TypeError('Expected int')
+        self._shares = value
 
     def __repr__(self):
         return f'Stock({self.name}, {self.shares}, {self.price:0.2f})'
