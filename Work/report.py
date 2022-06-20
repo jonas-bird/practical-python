@@ -6,8 +6,8 @@
 """
 import fileparse
 import stock
+from portfolio import Portfolio
 import tableformat
-
 
 def read_portfolio(filename):
     """recieves a filename for a csv file and returns list"""
@@ -18,7 +18,7 @@ def read_portfolio(filename):
         stock_dicts = fileparse.parse_csv(f, colNames, colTypes)
     stock_portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for
                         d in stock_dicts ]
-    return stock_portfolio
+    return Portfolio(stock_portfolio)
 
 
 def read_prices(filename):
@@ -58,7 +58,7 @@ def print_report(stock_report, formatter):
         formatter.row(rowdata)
 
 
-def portfolio_report(holdings_file, prices_file, output_format):
+def portfolio_report(holdings_file, prices_file, output_format='txt'):
     """
     Make a stock report from a portfolio and price data files.
     """

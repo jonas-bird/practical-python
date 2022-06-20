@@ -6,15 +6,15 @@
 
 # import csv
 import sys
-from report import read_portfolio
+import report
 
 
 def portfolio_cost(filename):
     """ takes the filename of a csv file with an integer in the second column
 and a double in the third, and returns the sum of the product of the two
 columns in each row"""
-    portfolio = read_portfolio(filename)
-    return sum([s.cost for s in portfolio])
+    portfolio = report.read_portfolio(filename)
+    return portfolio.total_cost
 
 
 def main(argv):
