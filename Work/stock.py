@@ -6,7 +6,7 @@ Part of Chapter 4 assignments in Practical Python
 
 
 class Stock:
-
+    __slots__ = ('name', '_shares', 'price')
     def __init__(self, name, shares, price):
         """Initialize a stock with the stock's:
         name, number of shares, and price per share
