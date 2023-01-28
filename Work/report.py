@@ -10,7 +10,7 @@ from portfolio import Portfolio
 import tableformat
 
 def read_portfolio(filename):
-    """recieves a filename for a csv file and returns list"""
+    """recieves a filename for a csv file and returns list of dictionaries with keys: name, share, price"""
     stock_portfolio = []
     colNames = ['name', 'shares', 'price']
     colTypes = [str, int, float]
@@ -81,6 +81,8 @@ def main(argv):
         holding_file = 'Data/portfolio.csv'
         price_file = 'Data/prices.csv'
         output_format = 'txt'
+        print('Usage: %s portfile pricefile format' % argv[0])
+        print("Using default testing values")
     portfolio_report(holding_file, price_file, output_format)
 
 
