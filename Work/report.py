@@ -9,8 +9,11 @@ import stock
 from portfolio import Portfolio
 import tableformat
 
+
 def read_portfolio(filename):
-    """recieves a filename for a csv file and returns list of dictionaries with keys: name, share, price"""
+    """recieves a filename for a csv file and returns list of dictionaries with
+    keys: name, share, price
+    """
     stock_portfolio = []
     colNames = ['name', 'shares', 'price']
     colTypes = [str, int, float]
