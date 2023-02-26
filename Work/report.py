@@ -19,7 +19,7 @@ def read_portfolio(filename):
     colTypes = [str, int, float]
     with open(filename) as f:
         stock_dicts = fileparse.parse_csv(f, colNames, colTypes)
-    stock_portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for
+    stock_portfolio = [ stock.Stock(**d) for
                         d in stock_dicts ]
     return Portfolio(stock_portfolio)
 
