@@ -3,10 +3,13 @@
 Defines a stock class that represents a position in an stock portfolio
 Part of Chapter 4 assignments in Practical Python
 """
-
+from typedproperty import typedproperty
 
 class Stock:
-    __slots__ = ('name', '_shares', 'price')
+    name = typedproperty('name', str)
+    shares = typedproperty('shares', int)
+    price = typedproperty('price', float)
+
     def __init__(self, name, shares, price):
         """Initialize a stock with the stock's:
         name, number of shares, and price per share
