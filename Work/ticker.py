@@ -22,14 +22,14 @@ def convert_types(rows, types):
 
 
 def make_dicts(rows, headers):
-    for row in rows:
-        yield dict(zip(headers, row))
+    # for row in rows:
+    #     yield dict(zip(headers, row))
+    return (dict(zip(headers, row)) for row in rows)
 
-
-def filter_symbols(rows, names):
-    for row in rows:
-        if row['name'] in names:
-            yield row
+# def filter_symbols(rows, names):
+#     for row in rows:
+#         if row['name'] in names:
+#             yield row
 
 
 def parse_stock_data(lines_in):
@@ -41,13 +41,15 @@ def parse_stock_data(lines_in):
 
 
 def ticker(portfile, logfile, fmt):
+    headings = ['name', 'price', 'change']
     formatter = tableformat.create_formatter(fmt)
-    formatter.headings(['name', 'price', 'change'])
+    formatter.headings(headings)
     portfolio = report.read_portfolio(portfile)
     rows = parse_stock_data(follow(logfile))
-    filtered_rows = filter_symbols(rows, portfolio)
+    # filtered_rows = filter_symbols(rows, portfolio)
+    filtered_rows = (row for row in rows if row['name'] in portfolio)
     for row in filtered_rows:
-        rowdata = [ row["name"], str(row["price"]), str(row["change"]) ]
+        rowdata = [row["name"], f"{row['price']:0.2f}", f"{row['change']:0.2f}"]
         formatter.row(rowdata)
 
 
