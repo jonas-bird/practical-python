@@ -6,9 +6,9 @@ Part of Chapter 4 assignments in Practical Python
 from typedproperty import typedproperty
 
 class Stock:
-    name = typedproperty('name', str)
-    shares = typedproperty('shares', int)
-    price = typedproperty('price', float)
+    name = String('name')
+    shares = Integer('shares')
+    price = Float('price')
 
     def __init__(self, name, shares, price):
         """Initialize a stock with the stock's:
